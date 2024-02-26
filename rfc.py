@@ -29,14 +29,10 @@ def encrypt_rfc(message, key):
     d, r = key
 
     for _ in range(r):
-        result = []
         matrix = [['\n' for _ in range(len(message))] for _ in range(d)]
         find_direction(1, d, matrix, message, 0)
 
-        for i in range(d):
-            for j in range(len(message)):
-                if matrix[i][j] != '\n':
-                    result.append(matrix[i][j])
+        result = [matrix[i][j] for i in range(d) for j in range(len(message)) if matrix[i][j] != '\n']
         message = "".join(result)
 
     return message
@@ -51,11 +47,8 @@ def decrypt_rfc(cipher, key):
         find_direction(0, d, matrix, cipher_length, 0)
 
         indx = 0
-        for i in range(d):
-            for j in range(cipher_length):
-                if matrix[i][j] == '*' and indx < len(cipher):
-                    matrix[i][j] = cipher[indx]
-                    indx += 1
+        for i, j in ((i, j) for i in range(d) for j in range(cipher_length)
+             if matrix[i][j] == '*' and indx < len(cipher)): matrix[i][j], indx = cipher[indx], indx + 1
 
         result = find_direction(0, d, matrix, cipher_length, 1)
         cipher = "".join(result)
