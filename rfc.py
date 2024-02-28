@@ -64,7 +64,7 @@ while True:
     print('3. Test 1 (Encryption)')
     print('4. Test 2 (Decryption)')
     print('5. Quit')
-    option = int(input())
+    option = int(input("Please select an option:\n"))
 
     if option == 1:
         pt = input("Please enter the plain text:\n")
