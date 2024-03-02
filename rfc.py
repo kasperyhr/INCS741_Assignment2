@@ -40,6 +40,7 @@ def encrypt_rfc(message, key):
 
 def decrypt_rfc(cipher, key):
     d, r = key
+    cipher = cipher.replace(" ", "").lower()
     cipher_length = len(cipher)
 
     for _ in range(r):
